@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEstadosGlobalesContext } from "../Components/utils/global.context";
 
@@ -7,14 +7,12 @@ const Detail = () => {
   const { odontologos, theme } = useEstadosGlobalesContext();
   const { id } = useParams();
 
-  const [odontologo, setOdontologo] = useState(undefined);
+  const [odontologo, setOdontologo] = useState(null);
 
   useEffect(() => {
-    const o = odontologos.find((odontologo) => {
-      return odontologo.id == id;
-    });
+    const o = odontologos.find((odontologo) => odontologo.id === id);
     setOdontologo(o);
-  }, [odontologos]);
+  }, [odontologos, id]);
 
   return (
     <div className={theme.color}>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Card from "../Components/Card";
 import { useEstadosGlobalesContext } from "../Components/utils/global.context";
 
@@ -10,7 +10,7 @@ const Home = () => {
     axios("https://jsonplaceholder.typicode.com/users").then((res) => {
       setOdontologos(res.data);
     });
-  }, []);
+  }, [setOdontologos]);
 
   return (
     <main className={theme.color}>

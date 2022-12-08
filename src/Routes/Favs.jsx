@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
 import Card from "../Components/Card";
 import { useEstadosGlobalesContext } from "../Components/utils/global.context";
 
+const favs = JSON.parse(localStorage.getItem("favorites")) || [];
+
 const Favs = () => {
   const { theme } = useEstadosGlobalesContext();
-
-  const favs = JSON.parse(localStorage.getItem("favorites")) || [];
 
   const handleFavs = () => {
     newFavs = favs.filter((fav) => fav.id !== id);

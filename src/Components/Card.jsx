@@ -1,32 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { links } from "./utils/links";
+const favs = JSON.parse(localStorage.getItem("favorites")) || [];
 
 const Card = ({ name, username, id }) => {
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
-    const favs = JSON.parse(localStorage.getItem("favorites")) || [];
     const isFav = favs.find((fav) => fav.id === id) ? true : false;
     setIsFav(isFav);
-  }, []);
+  }, [id]);
 
   const handleFavs = () => {
-    const favs = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    let newFavs;
-
-    if (favs.find((fav) => fav.id === id)) {
-      //If the id is already in the array, remove it from favs
-      newFavs = favs.filter((fav) => fav.id !== id);
-    } else {
-      //If the id is not in the array, add it to favs
-      newFavs = [...favs, { name, username, id }];
-    }
-    setIsFav(!isFav);
-
-    localStorage.setItem("favorites", JSON.stringify(newFavs));
-  };
+    setIsFav(!isFav)
+    const cleanedFavs = favs.filter(fav => fav.id !== id)
+    const newFavs = [...cleanedFavs, { name, username, id }]
+    localStorage.setItem('favorites', JSON.stringify(newFavs))
+  }
 
   return (
     <div className="card">

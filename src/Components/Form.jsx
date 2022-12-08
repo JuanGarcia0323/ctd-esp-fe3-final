@@ -16,33 +16,38 @@ const Form = () => {
     });
   };
 
-  const validate = () => {
+  const validate = (newUser) => {
     const emailRegex =
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 
-    let nombreError = "";
-    let emailError = "";
+    const error = {nombreError:"", emailError:""}
+
+    // let nombreError = "";
+    // let emailError = "";
 
     if (!newUser.nombre || newUser.nombre.length < 5) {
-      nombreError = "El nombre es requerido y debe tener al menos 5 caracteres";
+      error.nombreError = "El nombre es requerido y debe tener al menos 5 caracteres";
     }
 
     if (!newUser.email || !emailRegex.test(newUser.email)) {
-      emailError = "El email debe ser válido";
+      error.emailError = "El email debe ser válido";
     }
 
-    if (nombreError || emailError) {
-      setErrors({ nombreError, emailError });
+    if (error.nombreError || error.emailError) {
+      setErrors(error);
       return false;
     }
 
+    setErrors({})
     return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const isValid = validate();
+
+    // El valor que le pasa lo deberias sacar del evento
+    const isValid = validate(newUser);
 
     console.log(errors);
 
